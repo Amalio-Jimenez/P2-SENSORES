@@ -9,18 +9,28 @@ void STATUS4();
 void STATUS5();
 void STATUS6();
 void STATUS7();
-void emergenciaB();
+const int boton1 = 11;
+int val = 0;
+int state = 0;
+int oldval = 0;
+//int boton1 = digitalRead(11);
 void setup() {
   // put your setup code here, to run once:
   DDRD = 255;
-  DDRB = 255;
+  DDRB = 56;
   DDRC = 255;
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
- // PORTD = 0b01111011;
-  //PARPADEO();
+  val = digitalRead(boton1);
+  if ((val == HIGH) && oldval == LOW)
+  {
+    state=1-state;
+    delay(10);
+  }
+  if (state ==1)
+  
   STATUS1();
   STATUS2();
   STATUS3();
@@ -28,7 +38,6 @@ void loop() {
   STATUS5();
   STATUS6();
   STATUS7();
-  emergenciaB();
   //delay(1000);
 }
 
@@ -54,6 +63,12 @@ void STATUS1() {
   }
   //contador++;
   void STATUS2(){
+    int boton1 = digitalRead(11);
+    if (boton1 == HIGH)
+    {
+      PORTC=255;
+    }
+    
   PORTD = 0B00010001;
   PORTB = 0B00000100;
   delay(1000); 
@@ -157,10 +172,4 @@ delay(1000);
       delay(250);}
   bandera = !bandera;
   }
-}
-void emergenciaB()
-{
-  int boton1 = digitalRead(11);
-  if (boton1 == HIGH)
-    PORTC = 255;
 }
